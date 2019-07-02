@@ -1,3 +1,3 @@
 # SFP-GPON Stick
 
-Temporary repository, mainly for Lantiq chipset(presently owned by Intel) and maybe one or two Marvell ONU.
+Temporary repository, mainly for the Lantyq chipset and maybe for one or two others.
