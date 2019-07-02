@@ -72,7 +72,7 @@ dd if=/dev/zero of=$FIRMWARE_OUT bs=1 seek=124 count=32 conv=notrunc
 ## write $VENDOR to the previously zeroed out area starting at byte 664
 
 ## --------------------- Update created time ------------------------------------------------------------------------
-# binwalk displays created time for squashfs at 0x140200. Update created time later at the binary offset 0x208
+# binwalk displays created time for squashfs at 0x140200. Update created time later at the image offset 0x208
     stime=`binwalk $FIRMWARE_OUT | grep 0x140200 | grep -oP "created\: ([0-9\-\: ]+)" | sed -e "s/created: //g"`
 ## binwalk displays -->  2017-07-19 09:30:18  or type --> echo $stime
 
@@ -85,18 +85,19 @@ dd if=/dev/zero of=$FIRMWARE_OUT bs=1 seek=124 count=32 conv=notrunc
 ## echo $itime --> 1500481819
 
     htime=`echo "obase=16; ${itime}" | bc`
-## convert from decimal to hex(obase=16) and piping to bc (basic calculator)
+## convert from decimal to hex(obase=16) and pipe it to bc (basic calculator)
 ## echo $htime --> 596F891B
 
     htime=$(byte_hex2bin $htime 1)
+## reverse and convert 596F891B to binary format with \x prefix
+## Just for info check existing time at 0x208 --> ab 26 6f 59 byte reverse=596f26ab dec=1500456619
 ## dd if=$FIRMWARE_IN bs=1 skip=520 count=4 | hexdump -C  
-## existing time --> ab 26 6f 59 reverse=596f26ab dec=1500456619 or use online epoch converter    
-    
+       
     echo -e "${htime}" | dd of=$FIRMWARE_OUT bs=1 seek=520 count=4 conv=notrunc
-## write new created time value \x1B\x89\x6F\x59 as 4 bytes at the offset 520<->0x208   
+## write new "created time" value \x1B\x89\x6F\x59 as 4 bytes at the offset 520<->0x208   
 }
 
-## --------------------- hex2bin conversion -----------------------------------------------------------------------
+## --------------------- 4 bytes hex2bin conversion -----------------------------------------------------------
 function byte_hex2bin {
     v=$1
     if [ $2 -eq 1 ]; then
@@ -124,7 +125,12 @@ $FMK_BUILD
 mv "${FMK_EXTRACTED}new-firmware.bin" $FIRMWARE_OUT
 #cp $FIRMWARE_OUT ./Telia
 firmware_patch_img
-firmware_crc 540 1 1024 3669504 # 0x21C,<><------>true,<->0x400,<><------>0x380200],<---->// from bootloader to the end
-firmware_crc 544 1 512  512     # 0x220,<><------>true,<->0x200,<><------>0x400],><------>//
-firmware_crc 104 0 0    3670528 # 0x68,<-><------>false,<>0,<----><------>0x380200]<----->// for all file
+
+--------------- Some reference info. Headers and CRC taken from the source firmware  ---------------------
+## 27 05 19 56 uImage/U-boot Magic Number at 0x400
+## 48 39 EC 66 uImage header 0x400-0x43F --> CRC32 checksum (0x404-0x407) no reverse
+
+firmware_crc 540 1 1024 3669504 # 0x21C,<><------>reverse bytes,<->0x400,<><------>0x380200],<---->// from bootloader to the end
+firmware_crc 544 1 512  512     # 0x220,<><------>reverse bytes,<->0x200,<><------>0x400],><------>//
+firmware_crc 104 0 0    3670528 # 0x68, <><------>do not reverse,<->0,<--><------>0x380200]<----->// for all file
 #rm -rf $FMK_EXTRACTED
