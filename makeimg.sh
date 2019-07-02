@@ -90,10 +90,10 @@ dd if=/dev/zero of=$FIRMWARE_OUT bs=1 seek=124 count=32 conv=notrunc
 
     htime=$(byte_hex2bin $htime 1)
 ## dd if=$FIRMWARE_IN bs=1 skip=520 count=4 | hexdump -C  
-## current time value --> ab 26 6f 59 reverse=596f26ab dec=1500456619 or use online epoch converter    
+## existing time --> ab 26 6f 59 reverse=596f26ab dec=1500456619 or use online epoch converter    
     
     echo -e "${htime}" | dd of=$FIRMWARE_OUT bs=1 seek=520 count=4 conv=notrunc
-## write new created time as 4 bytes at the offset 520    
+## write new created time value \x1B\x89\x6F\x59 as 4 bytes at the offset 520<->0x208   
 }
 
 ## --------------------- hex2bin conversion -----------------------------------------------------------------------
@@ -101,8 +101,10 @@ function byte_hex2bin {
     v=$1
     if [ $2 -eq 1 ]; then
 	echo "\x${v:6:2}\x${v:4:2}\x${v:2:2}\x${v:0:2}"
+## change the byte order e.g. \x1B\x89\x6F\x59	
     else
 	echo "\x${v:0:2}\x${v:2:2}\x${v:4:2}\x${v:6:2}"
+## don't change the byte order e.g. \x59\x6F\x89\x1B
     fi
 }
 
