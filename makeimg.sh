@@ -112,25 +112,32 @@ function byte_hex2bin {
 ## --------------------- Calculate CRC -----------------------------------------------------------------------
 function firmware_crc {
     dd if=/dev/zero of=$FIRMWARE_OUT bs=1 seek=$1 count=4 conv=notrunc
-    crc=`$CRC32 $FIRMWARE_OUT $3 $4 | tail -n 1 | awk '{print $2}' | sed "s/0x//1"`
-    crc=$(byte_hex2bin $crc $2)
-    echo -e "${crc}" | dd of=$FIRMWARE_OUT bs=1 seek=$1 count=4 conv=notrunc
-}
+## zero out 4 bytes where CRC32 is stored 0x21C 0x220 0x68 (540 544 104)
 
+    crc=`$CRC32 $FIRMWARE_OUT $3 $4 | tail -n 1 | awk '{print $2}' | sed "s/0x//1"`
+## calculate CRC32 $offset $length (get the last line, 2nd colum and remove 1st instance of 0x)
+
+    crc=$(byte_hex2bin $crc $2)
+## reverse 4 bytes or not. It depends if variable $2 is 1 or 0
+
+    echo -e "${crc}" | dd of=$FIRMWARE_OUT bs=1 seek=$1 count=4 conv=notrunc
+## write 4 bytes checksum to the previously zeroed out location $1
+}
 
 rm -rf $FMK_EXTRACTED
 $FMK_EXTRACT $FIRMWARE_IN
 firmware_patch_src
 $FMK_BUILD
 mv "${FMK_EXTRACTED}new-firmware.bin" $FIRMWARE_OUT
-#cp $FIRMWARE_OUT ./Telia
 firmware_patch_img
 
 --------------- Some reference info. Headers and CRC taken from the source firmware  ---------------------
 ## 27 05 19 56 uImage/U-boot Magic Number at 0x400
 ## 48 39 EC 66 uImage header 0x400-0x43F --> CRC32 checksum (0x404-0x407) no reverse
 
-firmware_crc 540 1 1024 3669504 # 0x21C,<><------>reverse bytes,<->0x400,<><------>0x380200],<---->// from bootloader to the end
-firmware_crc 544 1 512  512     # 0x220,<><------>reverse bytes,<->0x200,<><------>0x400],><------>//
-firmware_crc 104 0 0    3670528 # 0x68, <><------>do not reverse,<->0,<--><------>0x380200]<----->// for all file
+## Great job on finding these checksum locations!
+## firmware_crc                $CRC32_offset     $revers_or_not    $offset         $length
+firmware_crc 540 1 1024 3669504 # 0x21C,<><------>reverse bytes,<->0x400,<><------>0x380200],<---->// BE F3 D0 10(old CRC32)
+firmware_crc 544 1 512  512     # 0x220,<><------>reverse bytes,<->0x200,<><--------->0x400],<---->// 6E F9 23 20(old CRC32)
+firmware_crc 104 0 0    3670528 # 0x68, <><----->do not reverse,<--->0x0,<><------>0x380200]<----->// F1 5D D3 F4(old CRC32)
 #rm -rf $FMK_EXTRACTED
