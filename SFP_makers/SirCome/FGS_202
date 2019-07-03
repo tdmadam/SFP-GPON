@@ -9,9 +9,15 @@ Main parts:
 Macronix MX25L6435EZNI 64Mb Flash
 Lantyq PEB 98036  GPON Chipset
 
+Image 0 version     SCOMFGS202112
+Image 1 version     SCOMFGS202112
+Model Name          FGS202
+Vendor Product Code 0x5345
+Bootloader version  2.0.2.0
 
 
-Limited shell is available by telnet from the provider side.
+
+Limited shell is available by telnet from the ISP side.
 user:admin
 password:admin
 FGS202:/# help
