@@ -3,6 +3,14 @@ PEF 98035 GPON Chipset
 RAM Nanya NT5TU32M16FG-AC1
 FLASH GD 25Q64CW16
 
+Login Web 192.168.1.1
+user: admin
+password: admin
+
+Login telnet
+user: twmanu
+password: twmanu
+
 root@SFP:/# cat /proc/cpuinfo 
 system type             : Falcon rev A22
 machine                 : SFP - Lantiq Falcon SFP Stick
