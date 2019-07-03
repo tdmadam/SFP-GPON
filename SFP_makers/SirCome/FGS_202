@@ -1,1 +1,56 @@
-placeholder for GPON data
+Flash dump OrangutanFR
+https://mega.nz/#!DVQFwSbJ!WBoJAYjGIX4UZAFIL_UYiHC6VZdSJWJkXP-Q5fWq8ic
+
+Flash dump OrangutanFR - Virgin
+https://mega.nz/#!ed4XUBrS!DgIX60oUBPvt-Sa1sEvFNJtAstHsNlz2-zYY-gZUzOA
+
+
+Main parts:
+Macronix MX25L6435EZNI 64Mb Flash
+Lantyq PEB 98036  GPON Chipset
+
+
+
+Limited shell is available by telnet from the provider side.
+user:admin
+password:admin
+FGS202:/# help
+<==================== =-CLI   COMMANDS-========================>
+show onu_stats                     :Display egress queue,port and TCONT counter.
+show device                        :Display general device information.
+show fw                            :Display firmware information.
+show me [clas_id][ins_id]          :Display general ME  information.
+show data_path                     :Display the forwarding table.
+show lan                           :Display LAN information.
+show gpon                          :Display GPON information.
+show optic                         :Display optic information.
+show gtc                           :Display GTC counter information.
+show igmp                          :Display IGMP information.
+show omci                          :Display omci log dynamically and sostenuto.
+show omci_path                     :Display bridge port,vlan,pbit,gem port,tcont relation.
+show omci_history                  :Display history omci log information.
+show sys_log                       :Display system log information.
+show ram                           :Display RAM information.
+show i2c                           :Display I2C information.
+show crash_log                     :Display crash log information.
+reset sys_log                      :Clear system log information.
+reset factory                      :Restore factory setting.
+reset crash_log                    :Clear crash log  information.
+set gpon_password PASSWORD         :Set GPON password.
+set password  PASSWORD             :Set user password.
+set time time_date                 :Set time for system,in this format year:month:day:hour:minute:second.
+set telnet enable/disable          :Enable/disbale telnet function
+set mapper_gem_queue               :Mapper gem port to egress queue
+set qos_config                     :Set egress port or queue param
+tftp <server_ip><file_name>        :Download file_name from tftp server(ip)
+omci_net_trace <TFTP-server-ip>    :Start uploading real-time omci trace to tftp server
+omci_net_trace stop                :Stop uploading real-time omci trace to tftp server
+optical prbs23/prbs32              :Change optical to PRBS23/PRBS32
+omci_trace start                   :Start omci packet trace
+omci_trace stop                    :Stop omci packet trace.
+omci_trace upload <TFTP-server-ip> :Upload ocmi packet trace to tftp server
+sys_log upload <TFTP-server-ip>    :Upload system log to tftp server
+diag [detail]
+
+
+SFP may have fixed IP 192.168.2.200 available from the LAN side. Telnet is turned off.
