@@ -1,1 +1,5 @@
-Placeholder for GPON data
+image0_version= 3FE56853BOPD09
+image1_version= 3FE56853AOPD69
+ver=U-Boot 2011.12-lantiq-gpon-1.2.24 (Nov 03 2014 - 22:46:28)
+ipaddr=192.168.1.10
+serverip=192.168.1.100
