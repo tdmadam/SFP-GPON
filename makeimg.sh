@@ -136,8 +136,9 @@ firmware_patch_img
 ## 48 39 EC 66 uImage header 0x400-0x43F --> CRC32 checksum (0x404-0x407) no reverse
 
 ## Great job on finding these checksum locations!
-## firmware_crc                $CRC32_offset     $revers_or_not    $offset         $length
-firmware_crc 540 1 1024 3669504 # 0x21C,<><------>reverse bytes,<->0x400,<><------>0x380200],<---->// BE F3 D0 10(old CRC32)
-firmware_crc 544 1 512  512     # 0x220,<><------>reverse bytes,<->0x200,<><--------->0x400],<---->// 6E F9 23 20(old CRC32)
-firmware_crc 104 0 0    3670528 # 0x68, <><----->do not reverse,<--->0x0,<><------>0x380200]<----->// F1 5D D3 F4(old CRC32)
+## firmware_crc   $CRC32_offset  $reverse_or_not  $offset  $length
+
+firmware_crc 540 1 1024 3669504    # 0x21C    From 0x400 to 0x380200   // BE F3 D0 10(old CRC32)
+firmware_crc 544 1 512  512        # 0x220,   From 0x200 to 0x400      // 6E F9 23 20(old CRC32)
+firmware_crc 104 0 0    3670528    # 0x68,    From   0x0 to 0x380200   // F1 5D D3 F4(old CRC32)
 #rm -rf $FMK_EXTRACTED
