@@ -63,7 +63,7 @@ dd if=/dev/zero of=$FIRMWARE_OUT bs=1 seek=124 count=32 conv=notrunc
 ##  write 32 bytes of zeros(/dev/zero) to a file starting at the offset 632 and don't truncate the output
 
     echo -n $SWVER | dd of=$FIRMWARE_OUT bs=1 seek=632 conv=notrunc
-## write $SWVER to the previously zeroed out area starting at the offset 124
+## write $SWVER to the previously zeroed out area starting at the offset 632
 
     dd if=/dev/zero of=$FIRMWARE_OUT bs=1 seek=664 count=32 conv=notrunc
 ##  write 32 bytes of zeros(/dev/zero) to a file starting at the offset 664 and don't truncate the output
