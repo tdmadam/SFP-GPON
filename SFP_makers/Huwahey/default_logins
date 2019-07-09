@@ -1,0 +1,14 @@
+MA5600T/MA5603T/MA5680T/MA5683T MA5608T:                 root/admin or root/admin123
+
+MA5612/MA5616/MA5621/MA5633
+MA5811SAE08/MA5811SDE16/MA5811SDE48
+MA5811SAE48/MA5818/MA5878                                root/mduadmin  or  root/admin123
+
+MA5675M/MA5672G2P8/MA5675G1P1F1/
+MA5675G1F1/MA5675/MA5675G4P4/MA5871                      root/admin    or  root/admin123
+
+MA5671A                                                  user/admin       or  root/admin123
+
+HG8010H/HG8310M/HG8120C
+(Only the password for telnet login is changed,
+The password for web login is not changed).              root/admin  or  root/adminHW
