@@ -28,3 +28,13 @@ O6: POPUP state.
 	
 O7: Emergency Stop state.
 	ONT receives "disable Serial Number" message and shuts off the laser.
+	
+
+
+
+
+U-boot repositories:
+
+https://gitlab.denx.de/u-boot/u-boot
+
+https://github.com/danielschwierzeck/u-boot-lantiq
