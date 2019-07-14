@@ -2,7 +2,10 @@ Login to 192.168.1.10 via SSH or Web. Fiber connection is not required.
 Web: adminadmin / ALC#FGU
 SSH: ONTUSER /  SUGAR2A041
 
-
+Main electronic components:
+PEB/PEF 98035 - GPON Chipset
+MX25L12805D - 128 Mbits SPI Flash    # https://www.macronix.com/Lists/ApplicationNote/Attachments/1854/AN036-MX25L6445E-12845E-1.0.pdf
+            - 64MB SDRAM
 
 ONTUSER@SFP:/# cat /proc/cpuinfo 
 system type		: Falcon rev A22
