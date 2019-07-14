@@ -1,7 +1,7 @@
 Main Parts:
 PEF 98035 GPON Chipset
-RAM Nanya NT5TU32M16FG-AC1
-FLASH GD 25Q64CW16
+NT5TU32M16FG-AC1 - 64MB SDRAM    # https://www.nanya.com/en/Product/3865/NT5TU32M16FG-AC
+FLASH GD 25Q64CW16 - 64Mbits SPI NOR Flash  # https://www.gigadevice.com/datasheet/gd25q64c/
 
 Login Web 192.168.1.1
 user: admin
