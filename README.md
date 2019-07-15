@@ -3,7 +3,7 @@
 Temporary repository, mainly for the Lantyq chipset and maybe for one or two others.
 
 
----- GPON ONU/ONT six states of authentication -----------------------------------
+-------------------------------------- GPON ONU/ONT six states of authentication -----------------------------------
 
 O1: Initial state
 	ONT is on, waits for the downstream signal, searching for instances of Psync field.
@@ -32,8 +32,7 @@ O7: Emergency Stop state.
 
 
 
-
-U-boot repositories:
+---------------------------------------- U-boot repositories ---------------------------------
 
 https://gitlab.denx.de/u-boot/u-boot
 
