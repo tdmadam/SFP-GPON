@@ -61,3 +61,4 @@ diag [detail]
 
 
 SFP may have fixed IP 192.168.2.200 available from the LAN side. Telnet is turned off.
+Silkscreen on the PCB incorrectly identifies pin 1. Two long pins are 9 and 10. The single long PIN is 1.
